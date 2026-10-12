@@ -579,9 +579,12 @@ function resize(){
 }
 function layoutMap(){
   var L = G.level;
-  var topH = 54, botH = 96, pad = 8;
+  // 自适应 HUD：横屏/矮屏时压缩顶栏与塔池高度
+  var topH = VH < 520 ? 46 : 54;
+  var botH = VH < 520 ? 62 : 96;
+  var pad = VH < 520 ? 4 : 8;
   var availW = VW - pad*2, availH = VH - topH - botH - pad*2;
-  TILE = Math.max(24, Math.floor(Math.min(availW/L.cols, availH/L.rows)));
+  TILE = Math.max(15, Math.floor(Math.min(availW/L.cols, availH/L.rows)));
   MAPW = TILE*L.cols; MAPH = TILE*L.rows;
   MAPX = Math.floor((VW-MAPW)/2);
   MAPY = topH + pad + Math.floor((availH-MAPH)/2);
